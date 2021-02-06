@@ -1,0 +1,60 @@
+<h1>Burgers!</h1>
+
+
+{{!loop for burgers which are not devoured }}
+
+<div>
+{{#each burgers}}
+{{#unless this.devoured}}
+{{this.id}}. {{this.burger_name}}
+<div class = "devouredBurger">
+  <input type="text" placeholder="{{this.burger_name}}" />
+  {{! ensuring that id and name are isolated so used for event listener}}
+  <button data-id={{this.id}} data-name={{this.burger_name}}>Devour It!!</button>
+</div>
+{{/unless}}
+{{/each}}
+</div>
+
+
+{{!loop for burgers which are devoured  }}
+<div class = "right">
+{{#each burgers}}
+{{#if this.devoured}}
+{{this.id}}.{{this.burger_name}}
+  <input type="hidden" type="text" placeholder="{{this.burger_name}}"/>
+  <input value={{this.burger_name}}  disabled="disabled"/>
+{{/if}}
+{{/each}}
+</div>
+
+{{!post medthod for adding burgers}}
+<div class= "form-post">
+<form class = "form1" action="/burgers" method="POST">
+  <input type="text" name="burger_name" />
+  <button type="submit">Add a Burger to Devour</button>
+</form>
+</div>
+
+<script>
+//inline scirpt for PUT request 
+  $(function () {
+    $(".devouredBurger").on("click", function (event) {
+      //destructuring object to get id
+
+      let { id } = event.target.dataset;
+
+      // Send the PUT request.
+      $.ajax("/burgers/" + id, {
+        type: "PUT",
+        data: {
+          devoured: 1,
+        }
+      }).then(
+        function () {
+          location.reload();
+        }
+      );
+    });
+  });
+</script>
