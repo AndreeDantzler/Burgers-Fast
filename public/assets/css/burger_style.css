@@ -42,6 +42,11 @@ button {
   float: right;
 }
 
+.left {
+  display: block;
+  float: left;
+}
+
 .eaten-burger {
   display: block;
   
