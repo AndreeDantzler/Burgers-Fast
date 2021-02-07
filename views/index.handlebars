@@ -22,8 +22,10 @@
 {{#each burgers}}
 {{#if this.devoured}}
 {{this.id}}.{{this.burger_name}}
+<div class = "eatenBurger"
   <input type="hidden" type="text" placeholder="{{this.burger_name}}"/>
   <input value={{this.burger_name}}  disabled="disabled"/>
+  <div></div>
 {{/if}}
 {{/each}}
 </div>
